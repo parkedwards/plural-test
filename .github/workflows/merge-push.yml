@@ -37,3 +37,5 @@ jobs:
           echo "head ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
 
+          echo "was this merged? ${{ github.event.pull_request.merged }}"
+
