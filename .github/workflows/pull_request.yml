@@ -30,6 +30,13 @@ jobs:
         run: |
           sleep 30
 
+      - name: Wait for approval
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.GITHUB_TOKEN }}
+          approvers: parkedwards
+          minimum-approvals: 1
+
       # Runs a single command using the runners shell
       - name: print shit
         run: |
