@@ -29,8 +29,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: print shit
         run: |
-          echo "event type: ${{ github.event.type }}"
-          echo "github ref: ${{ github.ref_name }}"
+          echo "event type: ${{ github.event_name }}"
+          echo "github ref: ${{ github.ref }}"
+          echo "github ref name: ${{ github.ref_name }}"
           echo "head ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
 
