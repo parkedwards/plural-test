@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: opened pr
 
 # Controls when the workflow will run
 on:
@@ -28,3 +28,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      # Runs a single command using the runners shell
+      - name: print shit
+        run: |
+          echo "event type: ${{ github.event_name }}"
+          echo "github ref: ${{ github.ref }}"
+          echo "github ref name: ${{ github.ref_name }}"
+          echo "head ref: ${{ github.head_ref }}"
+          echo "sha: ${{ github.sha }}"
+          echo "was this merged? ${{ github.event.pull_request.merged }}"
