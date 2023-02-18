@@ -31,11 +31,12 @@ jobs:
       # Runs a single command using the runners shell
       - name: print shit
         run: |
-          echo "event type: ${{ github.event_name }}"
-          echo "pr merged? ${{ github.event.pull_request.merged }}"
+          echo "event_type: ${{ github.event_name }}"
+          echo "pr_merged? ${{ github.event.pull_request.merged }}"
           echo "ref: ${{ github.ref }}"
-          echo "ref name: ${{ github.ref_name }}"
-          echo "base ref: ${{ github.base_ref }}"
-          echo "head ref: ${{ github.head_ref }}"
+          echo "ref_name: ${{ github.ref_name }}"
+          echo "workflow_ref: ${{ github.workflow_ref }}"
+          echo "base_ref: ${{ github.base_ref }}"
+          echo "head_ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
 
