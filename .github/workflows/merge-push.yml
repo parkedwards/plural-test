@@ -36,6 +36,7 @@ jobs:
           echo "ref: ${{ github.ref }}"
           echo "ref_name: ${{ github.ref_name }}"
           echo "workflow_ref: ${{ github.workflow_ref }}"
+          echo "job_workflow_ref: ${{ github.job_workflow_ref }}"
           echo "base_ref: ${{ github.base_ref }}"
           echo "head_ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
