@@ -33,8 +33,9 @@ jobs:
         run: |
           echo "event type: ${{ github.event_name }}"
           echo "pr merged? ${{ github.event.pull_request.merged }}"
-          echo "github ref: ${{ github.ref }}"
-          echo "github ref name: ${{ github.ref_name }}"
+          echo "ref: ${{ github.ref }}"
+          echo "ref name: ${{ github.ref_name }}"
+          echo "base ref: ${{ github.base_ref }}"
           echo "head ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
 
