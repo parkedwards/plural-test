@@ -5,8 +5,8 @@ name: merge
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
+  # push:
+    # branches: [ "main" ]
   pull_request:
     types: [ "closed" ]
     branches: [ "main" ]
@@ -40,6 +40,10 @@ jobs:
           echo "base_ref: ${{ github.base_ref }}"
           echo "head_ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
+
+  check_shit:
+    runs-on: ubuntu-latest
+    steps:
       - uses: dorny/paths-filter@v2
         id: changed
         with:
@@ -52,13 +56,13 @@ jobs:
 
   # some comments
   run-matrix:
-    needs: build
+    needs: check_shit
     runs-on: ubuntu-latest
-    if: ${{ needs.build.outputs.dbs != '[]' && needs.build.outputs.dbs != '' }}
+    if: ${{ needs.check_shit.outputs.dbs != '[]' && needs.check_shit.outputs.dbs != '' }}
     strategy:
       matrix:
-        db: ${{ fromJson(needs.build.outputs.dbs) }}
-        env: [ "dev", "staging", "prod"]
+        db: ${{ fromJson(needs.check_shit.outputs.dbs) }}
+        env: [ "dev", "stg"]
     steps:
       - name: print matrix
         run: |
