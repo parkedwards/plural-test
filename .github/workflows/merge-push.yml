@@ -24,9 +24,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: sleep time
-        run: |
-          sleep 30
+      # - name: sleep time
+      #   run: |
+      #     sleep 30
 
       # Runs a single command using the runners shell
       - name: print shit
@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        db: ${{ fromJson(needs.build.outputs.dbs) }}
+        db: ${{ fromJson(needs.build.outputs.dbs) || [] }}
         env: [ "dev", "staging", "prod"]
     steps:
       - name: print matrix
