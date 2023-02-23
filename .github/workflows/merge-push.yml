@@ -68,4 +68,10 @@ jobs:
         run: |
           echo "matrix: ${{ matrix.db }} - ${{ matrix.env }}"
 
-
+  some-job-after:
+    needs: run-matrix
+    runs-on: ubuntu-latest
+    steps:
+      - name: print matrix
+        run: |
+          echo "YOOOOOO THIS STILL RAN"
