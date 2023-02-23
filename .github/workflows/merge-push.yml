@@ -40,4 +40,26 @@ jobs:
           echo "base_ref: ${{ github.base_ref }}"
           echo "head_ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
+      - uses: dorny/paths-filter@v2
+        id: changed
+        with:
+          filters: |
+            events: 'migrations/events/**'
+            orion: 'migrations/orion/**'
+            nebula: 'migrations/nebula/**'
+    outputs:
+      dbs: ${{ steps.changed.outputs.changes }}
+
+  run-matrix:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        db: ${{ fromJson(needs.build.outputs.dbs) }}
+        env: [ "dev", "staging", "prod"]
+    steps:
+      - name: print matrix
+        run: |
+          echo "matrix: ${{ matrix.db }} - ${{ matrix.env }}"
+
 
