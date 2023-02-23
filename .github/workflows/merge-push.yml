@@ -70,6 +70,7 @@ jobs:
 
   some-job-after:
     needs: run-matrix
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: print matrix
