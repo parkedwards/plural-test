@@ -54,9 +54,10 @@ jobs:
   run-matrix:
     needs: build
     runs-on: ubuntu-latest
+    if: ${{ needs.build.outputs.dbs != '[]' && needs.build.outputs.dbs != '' }}
     strategy:
       matrix:
-        db: ${{ fromJson(needs.build.outputs.dbs) || fromJson('[]') }}
+        db: ${{ fromJson(needs.build.outputs.dbs) }}
         env: [ "dev", "staging", "prod"]
     steps:
       - name: print matrix
