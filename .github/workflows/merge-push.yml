@@ -27,10 +27,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: sleep time
-        run: |
-          sleep 30
-
       # Runs a single command using the runners shell
       - name: print shit
         run: |
@@ -43,8 +39,11 @@ jobs:
           echo "base_ref: ${{ github.base_ref }}"
           echo "head_ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
-
+      - name: sleep time
+        run: |
+          sleep 60
   check_shit:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2
