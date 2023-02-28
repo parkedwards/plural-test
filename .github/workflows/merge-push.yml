@@ -70,7 +70,6 @@ jobs:
       - name: print matrix
         run: |
           echo "matrix: ${{ matrix.db }} - ${{ matrix.env }}"
-          exit 1
 
   some-job-after:
     needs: run-matrix
