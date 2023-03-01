@@ -34,6 +34,7 @@ jobs:
           echo "event_type: ${{ github.event_name }}"
           echo "pr_merged? ${{ github.event.pull_request.merged }}"
           echo "ref: ${{ github.ref }}"
+          echo "ref from env: ${{ env.GITHUB_REF }}"
           echo "ref_name: ${{ github.ref_name }}"
           echo "workflow_ref: ${{ github.workflow_ref }}"
           echo "job_workflow_ref: ${{ github.job_workflow_ref }}"
