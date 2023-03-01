@@ -31,9 +31,9 @@ jobs:
       - name: arrays?
         run: |
           list=(
-            foo \
-            bar \
-            baz \
+            foo
+            bar
+            baz
           )
           for i in "${list[@]}"; do
             echo "$i-dawggy"
