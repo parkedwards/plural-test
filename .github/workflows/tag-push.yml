@@ -29,6 +29,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: print shit
         run: |
+          echo "ref_name: ${{ github.ref_name }}"
           echo "ref_type: ${{ github.ref_type }}"
           echo "ref: ${{ github.ref }}"
 
