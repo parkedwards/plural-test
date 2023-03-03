@@ -70,12 +70,22 @@ jobs:
           is_prd = env == "prd"
 
           output_key="check"
-          output_value=(mode in modes_to_update) or (is_rollback and !is_prd)
+          output_value=(mode in modes_to_update) or (is_rollback and not is_prd)
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
               print(f'{output_key}={output_value}', file=fh)
       - name: run check
         if: steps.check_status.outputs.check
+        run: |
+          echo "this ran!"
+          echo "check = ${{ steps.check_status.outputs.check }}"
+      - name: run check with True string (uppercase)
+        if: steps.check_status.outputs.check == 'True'
+        run: |
+          echo "this ran!"
+          echo "check = ${{ steps.check_status.outputs.check }}"
+      - name: run check with true string (lowercase)
+        if: steps.check_status.outputs.check == 'true'
         run: |
           echo "this ran!"
           echo "check = ${{ steps.check_status.outputs.check }}"
