@@ -16,13 +16,30 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      env:
+        description: "deploy environment - used on rollback-deploy mode"
+        type: choice
+        options:
+          - dev
+          - stg
+          - prd
+      mode:
+        description: "which nebula CI/CD mode?"
+        type: choice
+        required: true
+        options:
+          - feature-branch
+          - main-merge
+          - tag-push
+          - rollback-deploy
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    environment: dev-feature
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -39,3 +56,38 @@ jobs:
           echo "github ref name: ${{ github.ref_name }}"
           echo "head ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
+      - name: python output
+        shell: python
+        id: check_status
+        run: |
+          import os
+
+          mode = "${{ inputs.mode }}"
+          env = "${{ inputs.env }}"
+
+          modes_to_update = ["feature-branch", "main-merge", "tag-push"]
+          is_rollback = mode == "rollback-deploy"
+          is_prd = env == "prd"
+
+          output_key="check"
+          output_value=(mode in modes_to_update) or (is_rollback and not is_prd)
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+              print(f'{output_key}={output_value}', file=fh)
+      - name: run check
+        if: steps.check_status.outputs.check
+        run: |
+          echo "this ran!"
+          echo "check = ${{ steps.check_status.outputs.check }}"
+      - name: run check with True string (uppercase)
+        if: steps.check_status.outputs.check == 'True'
+        run: |
+          echo "this ran!"
+          echo "check = ${{ steps.check_status.outputs.check }}"
+      - name: run check with true string (lowercase)
+        if: steps.check_status.outputs.check == 'true'
+        run: |
+          echo "this ran!"
+          echo "check = ${{ steps.check_status.outputs.check }}"
+
+
