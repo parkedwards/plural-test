@@ -39,3 +39,22 @@ jobs:
           echo "github ref name: ${{ github.ref_name }}"
           echo "head ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
+      - name: python output
+        shell: python
+        id: check_status
+        run: |
+          import os
+          output_key="check"
+          output_value=True
+
+          print(output_key, output_value)
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+              print(f'{output_key}={output_value}', file=fh)
+      - name: run check
+        if: steps.check_status.outputs.check == 'True'
+        run: |
+          echo "this ran!"
+          echo "check = ${{ steps.check_status.outputs.check }}"
+
+
