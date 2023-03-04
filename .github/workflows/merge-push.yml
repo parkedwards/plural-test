@@ -15,6 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       env:
+        default: "dev"
         description: "deploy environment - used on rollback-deploy mode"
         type: choice
         options:
@@ -40,6 +41,10 @@ jobs:
   python_check:
     runs-on: ubuntu-latest
     steps:
+      - name: do inputs get set on pull_request?
+        run: |
+          echo "event: ${{ github.event_name }}"
+          echo "inputs.env: ${{ inputs.env }}"
       - name: python output
         shell: python
         id: check_status
