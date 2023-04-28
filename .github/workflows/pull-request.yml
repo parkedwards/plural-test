@@ -46,7 +46,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - name: print branch
-        run: git rev-parse --abbrev-ref HEAD
+        run: |
+          git rev-parse --abbrev-ref HEAD
+          git branch --show-current
       - name: arrays?
         run: |
           list=(
