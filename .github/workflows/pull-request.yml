@@ -52,6 +52,7 @@ jobs:
           echo ref: ${{ github.head_ref }}
           git rev-parse --abbrev-ref HEAD
           git branch --show-current
+          echo "context: $GITHUB_CONTEXT"
       - name: arrays?
         run: |
           list=(
