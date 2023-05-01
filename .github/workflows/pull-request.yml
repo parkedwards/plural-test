@@ -52,6 +52,8 @@ jobs:
           echo ref: ${{ github.head_ref }}
           git rev-parse --abbrev-ref HEAD
           git branch --show-current
+          
+          echo "YO THIS IS CHANGED"
           echo "context: $GITHUB_CONTEXT"
       - name: arrays?
         run: |
