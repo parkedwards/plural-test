@@ -49,6 +49,8 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: print branch
         run: |
+          git config -l
+        
           echo ref: ${{ github.head_ref }}
           git rev-parse --abbrev-ref HEAD
           git branch --show-current
