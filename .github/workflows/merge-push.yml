@@ -48,6 +48,7 @@ jobs:
       - name: do inputs get set on pull_request?
         run: |
           echo "event: ${{ github.event_name }}"
+          echo "pr_event: ${{ github.event.pull_request }}"
           echo "inputs.env: ${{ inputs.env }}"
           echo "${{ env.DOES_COMPUTE }}"
           echo "$DOES_COMPUTE"
