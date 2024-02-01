@@ -29,3 +29,4 @@ jobs:
           echo "ref_name: ${{ github.ref_name }}"
           echo "ref_type: ${{ github.ref_type }}"
           echo "ref: ${{ github.ref }}"
+          echo "github_sha: ${{ github.sha }}"
