@@ -37,3 +37,6 @@ jobs:
           echo "github ref name: ${{ github.ref_name }}"
           echo "head ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
+          echo "FOOBAR: $FOOBAR"
+        env:
+         FOOBAR: ${{ secrets.FOOBAR }}
