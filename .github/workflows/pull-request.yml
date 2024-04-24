@@ -50,6 +50,9 @@ jobs:
       - name: Does JQ exist?
         run: |
           jq --version
+      - name: Access to context inside bash?
+        run: |
+          echo ${{ github.event_name }}
       - name: print branch
         run: |
           git config -l
