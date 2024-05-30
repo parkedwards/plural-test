@@ -53,6 +53,7 @@ jobs:
           echo "inputs.env: ${{ inputs.env }}"
           echo "${{ env.DOES_COMPUTE }}"
           echo "$DOES_COMPUTE"
+          exit 0
       - name: python output
         shell: python
         id: check_status
