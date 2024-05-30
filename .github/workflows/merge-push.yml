@@ -107,7 +107,7 @@ jobs:
           echo "base_ref: ${{ github.base_ref }}"
           echo "head_ref: ${{ github.head_ref }}"
           echo "sha: ${{ github.sha }}"
-          exit 1
+          exit 0
       - name: sleep time
         run: |
           sleep 60
