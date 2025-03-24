@@ -48,6 +48,7 @@ jobs:
           base: ${{ needs.get_previous_tag.outputs.value }}
   build:
     # The type of runner that the job will run on
+    needs: [get_previous_tag]
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -61,4 +62,5 @@ jobs:
           echo "ref_name: ${{ github.ref_name }}"
           echo "ref_type: ${{ github.ref_type }}"
           echo "ref: ${{ github.ref }}"
+          echo "needs.get_previous_tag.outputs.value: ${{ needs.get_previous_tag.outputs.value }}"
 
