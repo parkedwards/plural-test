@@ -20,7 +20,7 @@ jobs:
     name: Get previous tag
     runs-on: ubuntu-latest
     outputs:
-      value: ${{ steps.get_previous_tag.outputs.previous_tag }}
+      value: ${{ steps.get_previous_tag.outputs.prev_tag }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
