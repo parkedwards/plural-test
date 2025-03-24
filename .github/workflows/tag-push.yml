@@ -16,24 +16,39 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  matrix:
-    name: The Matrix
+  get_previous_tag:
+    name: Get previous tag
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        inputs: ${{ fromJson('[]') }}
+    outputs:
+      value: ${{ steps.get_previous_tag.outputs.previous_tag }}
     steps:
-      - uses: actions/checkout@v3
-      - name: print shit
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Get previous tag
+        id: get_previous_tag
+        # https://cli.github.com/manual/gh_release_list
+        # -L 2: get the last 2 releases
+        # --json tagName: get the tag name
+        # -q '.[1].tagName': get the second release's tag name
         run: |
-          echo "ref_name: ${{ github.ref_name }}"
           prev_tag=$(gh release list -L 2 --json tagName -q '.[1].tagName')
           echo "Previous tag: ${prev_tag}"
+          echo "prev_tag=${prev_tag}" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ github.token }}
+  check_diff:
+    needs: [get_previous_tag]
+    runs-on: ubuntu-latest  
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            foo: '.github/workflows/tag-push.yml'
+          base: ${{ needs.get_previous_tag.outputs.value }}
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    needs: [matrix]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
